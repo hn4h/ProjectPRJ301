@@ -41,9 +41,9 @@
     </head>
     <body>
         <%@include file="header.jsp" %>
-         
-       <%@include file="content-Profile.jsp" %> 
-       
+
+        <%@include file="content-Profile.jsp" %> 
+
         <!-- Best Seller Section -->
         <%@include file="footer.jsp" %>>
         <!-- Make sure to include Bootstrap's JavaScript and jQuery -->

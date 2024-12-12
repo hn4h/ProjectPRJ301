@@ -4,11 +4,14 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author 11
  */
 public class Account {
+
     private int accountID;
     private String userName;
     private String hashedPassword;
@@ -19,12 +22,12 @@ public class Account {
     private String phoneNumber;
     private String address;
     private String profileImage;
-    private String createdDate;
+    private Date createdDate;
 
     public Account() {
     }
 
-    public Account(int accountID, String userName, String hashedPassword, int role, String firstName, String lastName, String email, String phoneNumber, String address, String profileImage, String createdDate) {
+    public Account(int accountID, String userName, String hashedPassword, int role, String firstName, String lastName, String email, String phoneNumber, String address, String profileImage, Date createdDate) {
         this.accountID = accountID;
         this.userName = userName;
         this.hashedPassword = hashedPassword;
@@ -78,8 +81,6 @@ public class Account {
         this.address = address;
     }
 
-   
-
     public int getAccountID() {
         return accountID;
     }
@@ -120,12 +121,12 @@ public class Account {
         this.profileImage = profileImage;
     }
 
-    public String getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-    
+
 }

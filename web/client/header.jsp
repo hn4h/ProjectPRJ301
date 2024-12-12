@@ -1,5 +1,8 @@
 <%-- Document : header Created on : Oct 3, 2024, 9:38:57 AM Author : 11 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="model.Account" %>
+<%@page import="dal.CartDAO" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -78,7 +81,7 @@
                             <div class="login-register text-right dropdown dropdown-slide">
                                 <div class="dropdown dropdown-slide">
                                     <a
-                                        href="#"
+                                        href="profile"
                                         class="dropdown-toggle"
                                         data-toggle="dropdown"
                                         data-hover="dropdown"
@@ -100,121 +103,118 @@
                             </div>
                             <% } %>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Cart and other menu items -->
-                        <ul class="top-menu text-right list-inline">
-                            <li class="dropdown cart-nav dropdown-slide">
-                                <a
-                                    href="#!"
-                                    class="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    data-hover="dropdown"
-                                    style="position: relative;"
-                                    >
-                                    <i class="tf-ion-android-cart"></i>
-                                    <span id="cart-count" style="position: absolute; top: -10px; right: -20px; background-color: black; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">0</span>
-                                    Cart
-                                </a>
-                                <div class="dropdown-menu cart-dropdown">
-                                    <!-- Cart Item -->
-                                    <div class="media">
-                                        <a class="pull-left" href="#!">
-                                            <img
-                                                class="media-object"
-                                                src="images/shop/cart/cart-1.jpg"
-                                                alt="image"
-                                                />
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                            <div class="cart-price">
-                                                <span>1 x</span>
-                                                <span>1250.00</span>
-                                            </div>
-                                            <h5><strong>$1200</strong></h5>
-                                        </div>
-                                        <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                    </div>
-                                    <!-- / Cart Item -->
-                                    <!-- Cart Item -->
-                                    <div class="media">
-                                        <a class="pull-left" href="#!">
-                                            <img
-                                                class="media-object"
-                                                src="images/shop/cart/cart-2.jpg"
-                                                alt="image"
-                                                />
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                            <div class="cart-price">
-                                                <span>1 x</span>
-                                                <span>1250.00</span>
-                                            </div>
-                                            <h5><strong>$1200</strong></h5>
-                                        </div>
-                                        <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                    </div>
-                                    <!-- / Cart Item -->
-
-                                    <div class="cart-summary">
-                                        <span>Total</span>
-                                        <span class="total-price">$1799.00</span>
-                                    </div>
-                                    <ul class="text-center cart-buttons">
-                                        <li>
-                                            <a href="cart.html" class="btn btn-small">View Cart</a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="checkout.html"
-                                                class="btn btn-small btn-solid-border"
-                                                >Checkout</a
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Cart and other menu items -->
+                                <ul class="top-menu text-right list-inline" style="margin-top: 20px;">
+                                    <li class=" cart-nav ">
+                                        <a
+                                            href="cart"
+                                            style="position: relative;"
                                             >
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <!-- / Cart -->
-
-                            <!-- Search -->
-                            <li class="dropdown search dropdown-slide">
-                                <a
-                                    href="#!"
-                                    class="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    data-hover="dropdown"
-                                    ><i class="tf-ion-ios-search-strong"></i> Search</a
-                                >
-                                <ul class="dropdown-menu search-dropdown">
-                                    <li>
-                                        <form action="post">
-                                            <input
-                                                type="search"
-                                                class="form-control"
-                                                placeholder="Search..."
-                                                />
-                                        </form>
+                                            <i class="tf-ion-android-cart"></i>
+                                            <span id="cart-count" style="position: absolute; top: -10px; right: -20px; background-color: black; color: white; border-radius: 50%; padding: 2px 6px; font-size: 12px;">
+                                                <% if(session.getAttribute("account") != null){
+                                                    Account acc = (Account) session.getAttribute("account");
+                                                    CartDAO dao = new CartDAO();
+                                                    
+                                                    out.print(dao.getCartItems(acc.getAccountID()).size());
+                                                    }
+                                                    else{
+                                                    out.print("0");
+                                                    }
+                                                %>
+                                            </span>
+                                            Cart
+                                        </a>
+                                        <div class="dropdown-menu cart-dropdown">
+                                            <!--   <div class="media">
+                                                   <a class="pull-left" href="#!">
+                                                       <img
+                                                           class="media-object"
+                                                           src="images/shop/cart/cart-1.jpg"
+                                                           alt="image"
+                                                           />
+                                                   </a>
+                                                   <div class="media-body">
+                                                       <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
+                                                       <div class="cart-price">
+                                                           <span>1 x</span>
+                                                           <span>1250.00</span>
+                                                       </div>
+                                                       <h5><strong>$1200</strong></h5>
+                                                   </div>
+                                                   <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+                                               </div>
+                                               <div class="media">
+                                                   <a class="pull-left" href="#!">
+                                                       <img
+                                                           class="media-object"
+                                                           src="images/shop/cart/cart-2.jpg"
+                                                           alt="image"
+                                                           />
+                                                   </a>
+                                                   <div class="media-body">
+                                                       <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
+                                                       <div class="cart-price">
+                                                           <span>1 x</span>
+                                                           <span>1250.00</span>
+                                                       </div>
+                                                       <h5><strong>$1200</strong></h5>
+                                                   </div>
+                                                   <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+                                               </div>
+                                                Cart Item 
+   
+                                               <div class="cart-summary">
+                                                   <span>Total</span>
+                                                   <span class="total-price">$1799.00</span>
+                                               </div> -->
+                                            <!-- <ul class="text-center cart-buttons">
+                                                <li>
+                                                    <a href="cart" class="btn btn-small">View Cart</a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="checkout"
+                                                        class="btn btn-small btn-solid-border"
+                                                        >Checkout</a
+                                                    >
+                                                </li>
+                                            </ul> -->
+                                        </div>
                                     </li>
-                                </ul>
-                            </li>
-                            <!-- / Search -->
+                                    <!-- / Cart -->
 
-                            <!-- Languages -->
-                            <li class="commonSelect">
-                                <select class="form-control">
-                                    <option>EN</option>
-                                    <option>DE</option>
-                                    <option>FR</option>
-                                    <option>ES</option>
-                                </select>
-                            </li>
-                            <!-- / Languages -->
-                        </ul>
-                        <!-- / .nav .navbar-nav .navbar-right -->
+                                    <!-- Search -->
+                                    <li class="dropdown search dropdown-slide">
+                                        <a
+                                            href="#!"
+                                            class="dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            data-hover="dropdown"
+                                            ><i class="tf-ion-ios-search-strong"></i> Search</a
+                                        >
+                                        <ul class="dropdown-menu search-dropdown">
+                                            <li>
+                                                <form action="search" >
+                                                    <input
+                                                        type="search"
+                                                        class="form-control"
+                                                        placeholder="Search..."
+                                                        name="search"
+                                                        />
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <!-- / Search -->
+
+                                </ul>
+                                <!-- / .nav .navbar-nav .navbar-right -->
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -249,143 +249,21 @@
                             <li class="dropdown">
                                 <a href="home">Home</a>
                             </li>
-                            <!-- / Home -->
-
-                            <!-- Elements -->
-                            <li class="dropdown dropdown-slide">
-                                <a
-                                    href="#!"
-                                    class="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    data-hover="dropdown"
-                                    data-delay="350"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    >Giày Nike</a
-                                >
-                                <div class="dropdown-menu">
-                                    <div class="row">
-                                        <!-- Basic -->
-                                        <div class="col-lg-12 col-md-12 mb-sm-6">
-                                            <ul>
-                                                <li class="dropdown-header">Nike</li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a href="shop.html">Nike Air Force 1</a></li>
-                                                <li><a href="checkout.html">Nike Air Jordan 1</a></li>
-                                                <li><a href="cart.html">Nike Nữ</a></li>
-                                                <li><a href="pricing.html">Nike Nam</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- / .row -->
-                                </div>
-                                <!-- / .dropdown-menu -->
-                            </li>
-                            <!-- / Elements -->
-
-                            <!-- Pages -->
-                            <li class="dropdown dropdown-slide">
-                                <a
-                                    href="#!"
-                                    class="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    data-hover="dropdown"
-                                    data-delay="350"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    >Giày Adidas</a
-                                >
-                                <div class="dropdown-menu">
-                                    <div class="row">
-                                        <!-- Basic -->
-                                        <div class="col-lg-12 col-md-12 mb-sm-6">
-                                            <ul>
-                                                <li class="dropdown-header">Adidas</li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a href="shop.html">Adidas Stansmith</a></li>
-                                                <li><a href="checkout.html">Adidas Superstar</a></li>
-                                                <li><a href="shop.html">Adidas Ultraboost</a></li>
-                                                <li><a href="checkout.html">Adidas Forum</a></li>
-                                                <li><a href="cart.html">Adidas Nu</a></li>
-                                                <li><a href="pricing.html">Adidas nam</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- / .row -->
-                                </div>
-                                <!-- / .dropdown-menu -->
-                            </li>
-
-                            <!-- Blog -->
-                            <li class="dropdown dropdown-slide">
-                                <a
-                                    href="#!"
-                                    class="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    data-hover="dropdown"
-                                    data-delay="350"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    >Giày MLB</a
-                                >
-                                <div class="dropdown-menu">
-                                    <div class="row">
-                                        <!-- Basic -->
-                                        <div class="col-lg-12 col-md-12 mb-sm-6">
-                                            <ul>
-                                                <li class="dropdown-header">MLB</li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a href="shop.html">MLB Mule</a></li>
-                                                <li><a href="shop.html">MLB Chunky</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- / .row -->
-                                </div>
-                                <!-- / .dropdown-menu -->
-                            </li>
-                            <!-- / Blog -->
-
-                            <!-- Shop -->
-                            <li class="dropdown dropdown-slide">
-                                <a
-                                    href="#!"
-                                    class="dropdown-toggle"
-                                    data-toggle="dropdown"
-                                    data-hover="dropdown"
-                                    data-delay="350"
-                                    role="button"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                    >Giày Khác</a
-                                >
-                                <div class="dropdown-menu">
-                                    <div class="row">
-                                        <!-- Basic -->
-                                        <div class="col-lg-12 col-md-12 mb-sm-6">
-                                            <ul>
-                                                <li class="dropdown-header">Giày Khác</li>
-                                                <li role="separator" class="divider"></li>
-                                                <li><a href="shop.html">Giày Puma</a></li>
-                                                <li><a href="shop.html">Giày Fila</a></li>
-                                                <li><a href="shop.html">Giày New Balance</a></li>
-                                                <li><a href="shop.html">Giày Chính Hãng Khác</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- / .row -->
-                                </div>
-                                <!-- / .dropdown-menu -->
-                            </li>
-                            <!-- / Blog -->
-                            <!-- Home -->
                             <li class="dropdown">
-                                <a href="index.html">Blog</a>
+                                <a href="search?search=&brand=1">Adidas</a>
                             </li>
-                            <!-- / Home -->
+                            <li class="dropdown">
+                                <a href="search?search=&brand=2">Nike</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="search?search=&brand=3">MLB</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="search?search=&brand=4">Puma</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="search?search=&brand=5">Fila</a>
+                            </li>
                         </ul>
                         <!-- / .nav .navbar-nav -->
                     </div>

@@ -1,149 +1,291 @@
-<%-- Document : dashboard Created on : Oct 5, 2024, 9:42:16 PM Author : 11 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%> <%@taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>JSP Page</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Construction Html5 Template" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
-    />
-    <meta name="author" content="Themefisher" />
-    <meta name="generator" content="Themefisher Constra HTML Template v1.0" />
+<html lang="en">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png" />
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dashboard - Shoes World</title>
 
-    <!-- Themefisher Icon font -->
-    <link rel="stylesheet" href="plugins/themefisher-font/style.css" />
-    <!-- bootstrap.min css -->
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css" />
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+              rel="stylesheet">
+        <link rel="stylesheet" href="./admin/assets/css/bootstrap.css">
 
-    <!-- Animate css -->
-    <link rel="stylesheet" href="plugins/animate/animate.css" />
-    <!-- Slick Carousel -->
-    <link rel="stylesheet" href="plugins/slick/slick.css" />
-    <link rel="stylesheet" href="plugins/slick/slick-theme.css" />
+        <link rel="stylesheet" href="./admin/assets/vendors/iconly/bold.css">
 
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
+        <link rel="stylesheet" href="./admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+        <link rel="stylesheet" href="./admin/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+        <link rel="stylesheet" href="./admin/assets/css/app.css">
+        <link rel="shortcut icon" href="./admin/assets/images/logo/logo.png" type="image/x-icon">
+    </head>
 
-  <body id="body">
-    <%@include file="header.jsp" %>
+    <body>
+        <div id="app">
+            <div id="sidebar" class="active">
+                <div class="sidebar-wrapper active">
+                    <div class="sidebar-header">
+                        <div class="d-flex justify-content-between">
+                            <div class="logo">
+                                <a href="dashboard"><img style="width: 100%; height: auto;"
+                                                         src="./admin/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            </div>
+                            <div class="toggler">
+                                <a href="#" class="sidebar-hide d-xl-none d-block"><i
+                                        class="bi bi-x bi-middle"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-menu">
+                        <ul class="menu">
+                            <li class="sidebar-title">Menu</li>
 
-    <section class="page-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="content">
-              <h1 class="page-name">Dashboard</h1>
-              <ol class="breadcrumb">
-                <li><a href="home">Home</a></li>
-                <li class="active"><a href="dashboard">Dashboard</a></li>
-              </ol>
+                            <li class="sidebar-item active ">
+                                <a href="dashboard" class='sidebar-link'>
+                                    <i class="bi bi-grid-fill"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item  has-sub">
+                                <a href="#" class='sidebar-link'>
+                                    <i class="bi bi-stack"></i>
+                                    <span>Mange</span>
+                                </a>
+                                <ul class="submenu ">
+                                    <li class="submenu-item ">
+                                        <a href="manageproduct">Product</a>
+                                    </li>
+                                    <li class="submenu-item ">
+                                        <a href="manageCategory">Category</a>
+                                    </li>
+                                    <li class="submenu-item ">
+                                        <a href="manageBrand">Brand</a>
+                                    </li>
+                                    <li class="submenu-item ">
+                                        <a href="manageOrder">Order</a>
+                                    </li>
+                                    <li class="submenu-item ">
+                                        <a href="manageUser">Customer</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="user-dashboard page-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="dashboard-wrapper user-dashboard">
-              <!-- Add Button -->
-              <div class="btn-group" role="group">
-                <button
-                  type="button"
-                  class="btn btn-default"
-                  onclick="addMaker()"
-                >
-                  <i class="tf-ion-plus-circled" aria-hidden="true"></i>
-                </button>
-              </div>
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <c:forEach items="${requestScope.makers}" var="m">
-                      <tr>
-                        <td>${m.name}</td>
-                        <td>
-                          <div class="btn-group" role="group">
-                            <button
-                              type="button"
-                              class="btn btn-default"
-                              onclick="updateMaker(${m.id})"
-                            >
-                              <i class="tf-pencil2" aria-hidden="true"></i>
-                            </button>
-                            <button
-                              type="button"
-                              class="btn btn-default"
-                              onclick="deleteMaker(${m.id})"
-                            >
-                              <i class="tf-ion-close" aria-hidden="true"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </c:forEach>
-                  </tbody>
-                </table>
-              </div>
+            <div id="main">
+                <header class="mb-3">
+                    <a href="#" class="burger-btn d-block d-xl-none">
+                        <i class="bi bi-justify fs-3"></i>
+                    </a>
+                </header>
+
+                <div class="page-heading">
+                    <h3>Profile Statistics</h3>
+                </div>
+                <div class="page-content">
+                    <section class="row">
+                        <div class="col-12 col-lg-12 row">
+                            <div class="row">
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body px-3 py-4-5">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="stats-icon purple">
+                                                        <i class="iconly-boldShow"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h6 class="text-muted font-semibold">Total Products</h6>
+                                                    <h6 class="font-extrabold mb-0">${requestScope.numOfProduct}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body px-3 py-4-5">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="stats-icon blue">
+                                                        <i class="iconly-boldProfile"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h6 class="text-muted font-semibold">Total Customer</h6>
+                                                    <h6 class="font-extrabold mb-0">${requestScope.numOfCustomer}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body px-3 py-4-5">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="stats-icon green">
+                                                        <i class="iconly-boldAdd-User"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h6 class="text-muted font-semibold">Revenue this month</h6>
+                                                    <h6 class="font-extrabold mb-0"><fmt:formatNumber type="number" value="${requestScope.totalRevenue}" maxFractionDigits="2" />₫</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body px-3 py-4-5">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="stats-icon red">
+                                                        <i class="iconly-boldBookmark"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <h6 class="text-muted font-semibold">Order This Month</h6>
+                                                    <h6 class="font-extrabold mb-0">${requestScope.numOfOrder}</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row col-12 col-lg-12">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Revenue Chart</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <form action="dashboard" method="get" >
+                                                <select name="chartOption" class="form-select" onchange="this.form.submit()">
+                                                    <option value="1" ${requestScope.chartOption == '1' ? 'selected' : ''}>Last 7 days</option>
+                                                    <option value="2" ${requestScope.chartOption == '2' ? 'selected' : ''} >Last 30 days</option>
+                                                    <option value="3"${requestScope.chartOption == '3' ? 'selected' : ''}>Last 90 days</option>
+                                                    <option value="4"${requestScope.chartOption == '4' ? 'selected' : ''}>This Year</option>
+                                                </select>
+                                            </form>
+                                            <div id="revenue-chart">
+                                                <!-- <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        var optionsProfileVisit = {
+                                                            annotations: {
+                                                                position: 'back'
+                                                            },
+                                                            dataLabels: {
+                                                                enabled: false
+                                                            },
+                                                            chart: {
+                                                                type: 'bar',
+                                                                height: 300
+                                                            },
+                                                            fill: {
+                                                                opacity: 1
+                                                            },
+                                                            plotOptions: {
+                                                            },
+                                                            series: [{
+                                                                    name: 'sales',
+                                                                    data: [9, 20, 30, 20, 10, 20, 30, 20, 10, 20, 30, 20]
+                                                                }],
+                                                            colors: '#435ebe',
+                                                            xaxis: {
+                                                                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                                                            },
+                                                        }
+                                                        var chart = new ApexCharts(document.querySelector("#product-sole"), optionsProfileVisit);
+                                                        chart.render();
+                                                    });
+                                                </script> -->
+
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                    var options = {
+                                                    series: [{
+                                                    name: 'Revenue',
+                                                            data: [<c:forEach items="${requestScope.chart}" var="c" varStatus="status">
+                                                        ${c.value}<c:if test="${!status.last}">,</c:if>
+                                                    </c:forEach>
+                                                            ]
+                                                    }],
+                                                            chart: {
+                                                            height: 350,
+                                                                    type: 'line',
+                                                                    zoom: {
+                                                                    enabled: true
+                                                                    }
+                                                            },
+                                                            dataLabels: {
+                                                            enabled: false
+                                                            },
+                                                            stroke: {
+                                                            curve: 'smooth'
+                                                            },
+                                                            grid: {
+                                                            row: {
+                                                            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                                                                    opacity: 0.5
+                                                            },
+                                                            },
+                                                            xaxis: {
+                                                            categories: [<c:forEach items="${requestScope.chart}" var="c" varStatus="status">
+                                                            '${c.columnName}'<c:if test="${!status.last}">,</c:if>
+                                                    </c:forEach>],
+                                                            }
+                                                    };
+                                                    var chart = new ApexCharts(document.querySelector("#revenue-chart"), options);
+                                                    chart.render();
+                                                    });
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Potential Customers</h4>
+                                    </div>
+                                    <div class="card-content pb-4">
+                                        <c:forEach items="${requestScope.potentialCustomer}" var="c">
+                                            <div class="recent-message d-flex px-4 py-3">
+                                                <div class="avatar avatar-lg">
+                                                    <img src="${c.profileImage}">
+                                                </div>
+                                                <div class="name ms-4">
+                                                    <h5 class="mb-1">${c.firstName} ${c.lastName}</h5>
+                                                    <h6 class="text-muted mb-0">@${c.userName}</h6>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+
+                                    </div>
+                                </div>
+                            </div>
+                    </section>
+                </div>
+
             </div>
-          </div>
         </div>
-      </div>
-    </section>
-    <%@include file="footer.jsp" %>
-    <!-- 
-          Essential Scripts
-          =====================================-->
+        <script src="./admin/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script src="./admin/assets/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Main jQuery -->
-    <script src="plugins/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.1 -->
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Bootstrap Touchpin -->
-    <script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
-    <!-- Instagram Feed Js -->
-    <script src="plugins/instafeed/instafeed.min.js"></script>
-    <!-- Video Lightbox Plugin -->
-    <script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
-    <!-- Count Down Js -->
-    <script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+        <script src="./admin/assets/vendors/apexcharts/apexcharts.js"></script>
+        <script src="./admin/assets/js/pages/dashboard.js"></script>
 
-    <!-- slick Carousel -->
-    <script src="plugins/slick/slick.min.js"></script>
-    <script src="plugins/slick/slick-animation.min.js"></script>
+        <script src="./admin/assets/js/main.js"></script>
+    </body>
 
-    <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
-
-    <!-- Main Js File -->
-    <script src="js/script.js"></script>
-    <script>
-      function updateMaker(id) {
-        window.location.href = "updateMaker?id=" + id;
-      }
-      function deleteMaker(id) {
-        window.location.href = "deleteMaker?id=" + id;
-      }
-      function addMaker() {
-        window.location.href = "addMaker";
-      }
-    </script>
-  </body>
 </html>
